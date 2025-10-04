@@ -35,7 +35,7 @@ describe('Cadastrar entradas e saídas com bugs', () => {
 
     cy.contains("Salvar").click()
     
-//    cy.get("tbody tr").should("have.length", 1)
+    cy.get("tbody tr").should("have.length", 1)
   });
 
   it('Cadastrar uma nova transação de entrada - falha 4', () => {
