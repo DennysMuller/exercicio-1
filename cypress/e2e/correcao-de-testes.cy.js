@@ -60,7 +60,10 @@ describe('Cadastrar entradas e saídas com bugs', () => {
 
     cy.contains("Salvar").click()
 
-    cy.get(".alert").should("not.exist")
+    // Essa asserção não faz sentido no teste, ele sempre passará pois ".alert" e "not.exist" não existem no código do site
+    // cy.get(".alert").should("not.exist")
+    // Alterado para 
+    cy.get("tbody tr").should("have.length", 1)
   });
 
   it('Cadastrar uma nova transação de entrada - falha 6', () => {
