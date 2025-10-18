@@ -2,20 +2,30 @@
 describe('Cadastrar entradas e saídas com bugs', () => {
   it('Cadastrar uma nova transação de entrada - falha 1', () => {
     cy.visit("https://devfinance-agilizei.netlify.app")
- 
+    
     cy.contains("Nova Transação").click()
     cy.get("#description").type("Mesada")
     cy.get("#amount").type(100)
     cy.get("#date").type("2023-02-01")
-
+    
+    // cy.contains("Salvar").contains().get().click()
     cy.contains("Salvar").click()
-
+    
+    // Faltou a estrutura de asserção tb
+    // Os testes precisam dos blocos: arrange, act e assert
+    cy.get("tbody tr").should("have.length", 1)
   });
 
   it('Cadastrar uma nova transação de entrada - falha 2', () => {
     cy.visit("https://devfinance-agilizei.netlify.app")
 
     cy.contains("Nova Transação").click()
+    
+    /**
+    cy.get("#description").sendkeys("Mesada")
+    cy.get("#amount").type.sendkeys(100)
+    cy.get("#date").type.sendkeys("2023-02-01")
+    */    
     cy.get("#description").type("Mesada")
     cy.get("#amount").type(100)
     cy.get("#date").type("2023-02-01")
@@ -26,11 +36,14 @@ describe('Cadastrar entradas e saídas com bugs', () => {
   });  
 
   it('Cadastrar uma nova transação de entrada - falha 3', () => {
+    // Erro, não havia o acesso ao site
     cy.visit("https://devfinance-agilizei.netlify.app")
+
     cy.contains("Nova Transação").click()
     cy.get("#description").type("Mesada")
     cy.get("#amount").type(100)
 
+    // cy.get("#date").type("02/01/2023")
     cy.get("#date").type("2023-01-02")
 
     cy.contains("Salvar").click()
@@ -41,10 +54,14 @@ describe('Cadastrar entradas e saídas com bugs', () => {
   it('Cadastrar uma nova transação de entrada - falha 4', () => {
     cy.visit("https://devfinance-agilizei.netlify.app")
 
+    // Erro, não havia o click abaixo
     cy.contains("Nova Transação").click()
+
     cy.get("#amount").type(100)
     cy.get("#description").type("Mesada")
     cy.get("#date").type("2023-02-01")
+    
+    // Erro, não faz sentido clicar num objeto o qual está atrás era cy.contains("Nova Transação").click()
     cy.contains("Salvar").click()
 
     cy.get("tbody tr").should("have.length", 1)
@@ -53,6 +70,7 @@ describe('Cadastrar entradas e saídas com bugs', () => {
   it('Cadastrar uma nova transação de entrada - falha 5', () => {
     cy.visit("https://devfinance-agilizei.netlify.app")
 
+    // Erro, não é em espanhol cy.contains("Nueva Transación").click()
     cy.contains("Nova Transação").click()
     cy.get("#description").type("Mesada")
     cy.get("#amount").type(100)
@@ -60,12 +78,14 @@ describe('Cadastrar entradas e saídas com bugs', () => {
 
     cy.contains("Salvar").click()
 
-    // Essa asserção não faz sentido no teste, ele sempre passará pois ".alert" e "not.exist" não existem no código do site
+    // Essa asserção não faz sentido no teste, ele sempre passará pois ".alert" realmente não exitse no código
+    // "not.exist" nunca vai falhar
     // cy.get(".alert").should("not.exist")
     // Alterado para 
     cy.get("tbody tr").should("have.length", 1)
   });
 
+    // Erro, havia um skip no it.skip
   it('Cadastrar uma nova transação de entrada - falha 6', () => {
     cy.visit("https://devfinance-agilizei.netlify.app")
 
@@ -76,6 +96,7 @@ describe('Cadastrar entradas e saídas com bugs', () => {
 
     cy.contains("Salvar").click()
 
+    // Erro, estamos apenas cadastrando um item logo não devo validar 100, cy.get("tbody tr").should("have.length", 100)
     cy.get("tbody tr").should("have.length", 1)
   });
-}); 
+}); //26 min
