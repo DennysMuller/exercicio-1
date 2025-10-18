@@ -1,4 +1,8 @@
-/node_modules
 /cypress/screenshots
+/tmpBstackPackages
 /cypress/reports
+/node_modules
+/results
+/log
+npm_install_debug.log
 *.txt
